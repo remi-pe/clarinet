@@ -3,7 +3,7 @@
 import OpenAI from "openai";
 
 const client = new OpenAI({
-  apiKey: process.env.THING,
+  apiKey: process.env.OPEN_AI_SECRET,
 });
 
 export const handleLlm = async ({input}: {input: string}) => {
