@@ -8,8 +8,5 @@ export default function BuildPage() {
 
   if (!generatedCode) return null;
 
-  console.log("generatedCode", generatedCode);
-  console.log("parsed", parse(generatedCode));
-
   return <div>{parse(generatedCode)}</div>;
 }

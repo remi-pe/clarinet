@@ -82,5 +82,5 @@ export const BuildRequest = ({
   );
 };
 
-// Build a red button that says 'Click me'. On hover, the button should change color to blue.
+// Build a red button that says 'Click me'
 // Build a form that has three inputs: name, email, and phone number. The form should have a submit button that says 'Submit'.
