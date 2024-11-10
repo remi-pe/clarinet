@@ -1,62 +1,84 @@
 "use client";
 
+import {zodResolver} from "@hookform/resolvers/zod";
+import {useForm} from "react-hook-form";
+import {z} from "zod";
+
+import {Button} from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import {Textarea} from "@/components/ui/textarea";
 import {handleLlm} from "@/app/server/llm";
 import {useStore} from "@/app/store";
-import {useEffect} from "react";
-import {useFormStatus} from "react-dom";
 
-function SubmitButton() {
-  const {isBuilding, setIsBuilding} = useStore();
-  const status = useFormStatus();
-
-  useEffect(() => {
-    if (status.pending && !isBuilding) {
-      setIsBuilding(true);
-    }
-
-    if (!status.pending && isBuilding) {
-      setIsBuilding(false);
-    }
-  }, [status.pending, isBuilding, setIsBuilding]);
-
-  return (
-    <button disabled={status.pending}>
-      {status.pending ? "Building..." : "Submit"}
-    </button>
-  );
-}
+const FormSchema = z.object({
+  input: z
+    .string()
+    .min(10, {
+      message: "Input must be at least 10 characters.",
+    })
+    .max(500, {
+      message: "Input must not be longer than 500 characters.",
+    }),
+});
 
 export const BuildRequest = ({
   setGeneratedCode,
 }: {
   setGeneratedCode: (code: string) => void;
 }) => {
-  const handler = async (formData: FormData) => {
+  const {isProcessing, setIsProcessing} = useStore();
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
+
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setIsProcessing(true);
+
     const response = await handleLlm({
-      input: formData.get("input") as string,
+      input: data.input,
     });
 
     if (!response) {
+      setIsProcessing(false);
       // error toast
       return;
     }
 
+    setIsProcessing(false);
+
     setGeneratedCode(response);
-  };
+  }
 
   return (
-    <form
-      action={(formData) => handler(formData)}
-      className="w-1/3 flex flex-col gap-4 bg-dark_black"
-    >
-      <textarea
-        className="text-dark_black"
-        name="input"
-        placeholder="Enter your prompt"
-        defaultValue="Build a form that has three inputs: name, email, and phone number. The form should have a submit button that says 'Submit'."
-      />
-      <SubmitButton />
-    </form>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+        <FormField
+          control={form.control}
+          name="input"
+          render={({field}) => (
+            <FormItem>
+              <FormControl>
+                <Textarea
+                  placeholder="Tell us a little bit about yourself"
+                  className="resize-none border-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button disabled={isProcessing}>
+          {isProcessing ? "Processing" : "Submit"}
+        </Button>
+      </form>
+    </Form>
   );
 };
 

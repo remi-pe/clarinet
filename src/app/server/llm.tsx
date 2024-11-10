@@ -7,6 +7,7 @@ const client = new OpenAI({
 });
 
 export const handleLlm = async ({input}: {input: string}) => {
+  console.log("inphandleLlmhandleLlmut", input);
   const completion = await client.chat.completions.create({
     model: "gpt-4o",
     temperature: 0,

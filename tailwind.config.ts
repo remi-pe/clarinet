@@ -5,20 +5,6 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/**/*.{js,jsx,ts,tsx,json}",
-  ],
-  safelist: [
-    "bg-red-500",
-    "text-3xl",
-    "lg:text-4xl",
-    "bg-blue-500",
-    "text-white",
-    "px-4",
-    "py-2",
-    "rounded",
-    "hover:bg-blue-700",
-    "transition-colors",
-    "duration-300",
   ],
   theme: {
     extend: {
