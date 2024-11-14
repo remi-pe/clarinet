@@ -8,7 +8,7 @@ import {useStore} from "@/app/store";
 
 export default function App() {
   const [isOn, setIsOn] = useState(false);
-  const {generatedCode} = useStore();
+  const {generatedCode, isProcessing} = useStore();
   const router = useRouter();
 
   const toggleSwitch = () => {
@@ -44,7 +44,7 @@ export default function App() {
         transition={spring}
       />
       <div className="absolute right-6 z-10 text-white">
-        <Label text="BUILD" />
+        <Label text={isProcessing ? "PROCESSING" : "BUILD"} />
       </div>
     </div>
   );

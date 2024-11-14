@@ -11,7 +11,9 @@ const config: Config = {
       colors: {
         dark_black: "#1D1D1D", // #242424
         light_black: "#272727",
+        lightest_black: "#4F4F4F",
         regal_green: "#137670",
+        border_stroke: "#3B3B3B",
       },
       fontFamily: {
         inter: ["var(--font-inter)"],
