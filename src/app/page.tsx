@@ -7,7 +7,7 @@ export default function Home() {
   const {setGeneratedCode} = useStore();
 
   return (
-    <div className="flex w-1/2 text-white">
+    <div className="flex w-full text-white p-8">
       <BuildRequest setGeneratedCode={setGeneratedCode} />
     </div>
   );
