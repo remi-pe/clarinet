@@ -1,18 +1,8 @@
-export const CrossIcon = ({
-  size = 8,
-  rotate,
-}: {
-  size?: number;
-  rotate?: number;
-}) => {
+import {BaseIcon, Size} from "./base-icon";
+
+export const CrossIcon = ({size}: {size: Size}) => {
   return (
-    <svg
-      width={size}
-      viewBox="0 0 8 8"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      transform={rotate ? `rotate(${rotate})` : undefined}
-    >
+    <BaseIcon size={size} viewBox="0 0 8 8">
       <path
         d="M7.32565 0.652161L0.674331 7.34781"
         stroke="white"
@@ -25,6 +15,6 @@ export const CrossIcon = ({
         strokeWidth="1.0802"
         strokeLinecap="round"
       />
-    </svg>
+    </BaseIcon>
   );
 };

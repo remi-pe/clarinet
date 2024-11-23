@@ -31,10 +31,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${prata.variable} ${inter.variable} antialiased bg-light_black`}
+        className={`${prata.variable} ${inter.variable} antialiased bg-grey-300`}
       >
         <Header />
-        <div className="bg-light_black screen w-full relative flex px-12 py-8">
+        <div className="bg-grey-300 screen w-full relative flex px-12 py-8">
           {children}
         </div>
       </body>

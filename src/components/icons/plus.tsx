@@ -1,12 +1,8 @@
-export const PlusIcon = () => {
+import {BaseIcon, Size} from "./base-icon";
+
+export const PlusIcon = ({size}: {size: Size}) => {
   return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <BaseIcon size={size} viewBox="0 0 12 12">
       <path
         d="M6.00001 0.959991V11.04"
         stroke="white"
@@ -19,6 +15,6 @@ export const PlusIcon = () => {
         strokeWidth="1.5"
         strokeLinecap="round"
       />
-    </svg>
+    </BaseIcon>
   );
 };

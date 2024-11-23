@@ -5,6 +5,7 @@ import parse from "html-react-parser";
 
 export default function BuildPage() {
   const {generatedCode} = useStore();
+  console.log(generatedCode);
 
   if (!generatedCode) return null;
 
