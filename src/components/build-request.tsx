@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {useForm, useFieldArray} from "react-hook-form";
 import {Textarea} from "@/components/ui/textarea";
@@ -12,6 +14,7 @@ type FormData = {
     requirement: string;
   }[];
 };
+
 export const BuildRequest = () => {
   const {setIsProcessing, setGeneratedCode} = useStore();
   const {register, control, handleSubmit} = useForm({
@@ -21,8 +24,6 @@ export const BuildRequest = () => {
   });
 
   const construeRequirements = (data: FormData) => {
-    console.log("construeRequirements", data);
-
     return data.requirements.map((item) => item.requirement).join("\n");
   };
 
@@ -63,12 +64,14 @@ export const BuildRequest = () => {
                 onClickHandler={() => remove(index)}
                 size="xs"
                 theme="dark"
+                className="grey-100 grey-400"
               />
               <Textarea
                 className="text-white border-none p-0"
                 {...register(`requirements.${index}.requirement`, {
                   required: true,
                 })}
+                defaultValue="write some react code that draws a red square on the screen."
                 placeholder="write some react code that draws a red square on the screen."
               />
             </li>
@@ -80,6 +83,7 @@ export const BuildRequest = () => {
         onClickHandler={() => append({requirement: ""})}
         size="m"
         theme="dark"
+        className="grey-100 grey-400"
       />
     </form>
   );
