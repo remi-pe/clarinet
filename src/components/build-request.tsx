@@ -1,5 +1,5 @@
 import React from "react";
-import {useForm, useFieldArray, set} from "react-hook-form";
+import {useForm, useFieldArray} from "react-hook-form";
 import {Textarea} from "@/components/ui/textarea";
 import {CrossIcon} from "./icons/cross";
 import {Button} from "./button";
@@ -62,6 +62,7 @@ export const BuildRequest = () => {
                 renderIcon={(size) => <CrossIcon size={size} />}
                 onClickHandler={() => remove(index)}
                 size="xs"
+                theme="dark"
               />
               <Textarea
                 className="text-white border-none p-0"
@@ -78,6 +79,7 @@ export const BuildRequest = () => {
         renderIcon={(size) => <PlusIcon size={size} />}
         onClickHandler={() => append({requirement: ""})}
         size="m"
+        theme="dark"
       />
     </form>
   );

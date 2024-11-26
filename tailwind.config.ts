@@ -12,6 +12,9 @@ const config: Config = {
         inter: ["var(--font-inter)"],
         prata: ["var(--font-prata)"],
       },
+      fontWeight: {
+        semibold: "500",
+      },
       colors: {
         white: "#FFFFFF",
         black: "#000000",
@@ -28,12 +31,12 @@ const config: Config = {
           200: "#137670",
           100: "#0A4D49",
         },
-        // red: {
-        //   400: "#FC7070",
-        //   300: "#FF4545",
-        //   200: "#FF4805",
-        //   100: "#562716",
-        // },
+        red: {
+          400: "#FC7070",
+          300: "#FF4545",
+          200: "#FF4805",
+          100: "#562716",
+        },
         blue: {
           300: "#2554FF",
           200: "#0105F8",

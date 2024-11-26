@@ -1,7 +1,7 @@
 "use client";
 
 import {useRouter} from "next/navigation";
-import {Button} from "./ui/button";
+import {Button} from "./button";
 
 export const Header = () => {
   const router = useRouter();
@@ -15,12 +15,29 @@ export const Header = () => {
         >
           Clarinet
         </span>
-        <Button type="submit" form="hook-form" className="text-white">
-          SUBMIT
-        </Button>
-        <Button className="text-white" onClick={() => router.push("/build")}>
-          KNOWLEDGE BASE
-        </Button>
+        <div className="space-x-4">
+          <Button
+            theme="dark"
+            renderLabel={() => (
+              <p className="text-white text-sm font-semibold">KNOWLEDGE BASE</p>
+            )}
+            size={"l"}
+            onClickHandler={() => router.push("/build")}
+            bgFill="bg-blue-100"
+            borderFill="border-blue-300"
+          />
+
+          <Button
+            theme="dark"
+            renderLabel={() => (
+              <p className="text-white text-sm font-semibold">BUILD</p>
+            )}
+            size={"l"}
+            onClickHandler={() => router.push("/build")}
+            bgFill="bg-grey-100"
+            borderFill="border-grey-300"
+          />
+        </div>
       </header>
     </>
   );

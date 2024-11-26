@@ -5,9 +5,14 @@ import parse from "html-react-parser";
 
 export default function BuildPage() {
   const {generatedCode} = useStore();
-  console.log(generatedCode);
 
   if (!generatedCode) return null;
 
-  return <div>{parse(generatedCode)}</div>;
+  return (
+    <div>
+      <p className="text-white">build page</p>
+      <p className="text-white">{generatedCode}</p>
+      {parse(generatedCode)}
+    </div>
+  );
 }
