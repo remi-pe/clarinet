@@ -34,7 +34,7 @@ export const Header = () => {
 
           <Button
             renderIcon={(size) => <SystemIcon size={size} />}
-            onClickHandler={() => console.log("add system prompt")}
+            onClickHandler={() => router.push("/edit-system-prompt")}
             size="xl"
             theme="dark"
             className="grey-100 grey-400 h-[40px]"

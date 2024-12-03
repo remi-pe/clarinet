@@ -8,9 +8,9 @@ const typographyVariants = cva("text-foreground", {
   variants: {
     variant: {
       h1: "text-header1 font-syne font-bold",
-      h2: "text-title1 font-workSans",
-      p: "text-body font-workSans",
-      tag: "text-[12px] font-workSans", // get this working from tailwind config
+      h2: "text-title1 font-inter",
+      p: "text-body font-inter",
+      tag: "text-[12px] font-inter", // get this working from tailwind config
     },
   },
 });
