@@ -8,6 +8,7 @@ import {Button} from "./button";
 import {PlusIcon} from "./icons/plus";
 import {useStore} from "@/app/store";
 import {handleLlm} from "@/app/server/llm";
+import {useRouter} from "next/navigation";
 
 type FormData = {
   requirements: {
@@ -16,6 +17,7 @@ type FormData = {
 };
 
 export const BuildRequest = () => {
+  const router = useRouter();
   const {setIsProcessing, setGeneratedCode} = useStore();
   const {register, control, handleSubmit} = useForm({
     defaultValues: {
@@ -44,6 +46,8 @@ export const BuildRequest = () => {
     if (!response) return;
 
     setGeneratedCode(response);
+
+    router.push("/build");
   };
 
   return (
@@ -71,7 +75,7 @@ export const BuildRequest = () => {
                 {...register(`requirements.${index}.requirement`, {
                   required: true,
                 })}
-                defaultValue="write some react code that draws a red square on the screen."
+                value="write some react code that draws a red square on the screen."
                 placeholder="write some react code that draws a red square on the screen."
               />
             </li>

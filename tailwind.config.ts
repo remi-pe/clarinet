@@ -12,6 +12,11 @@ const config: Config = {
         inter: ["var(--font-inter)"],
         prata: ["var(--font-prata)"],
       },
+      fontSize: {
+        header1: "1.37rem", // 22px
+        body: "0.875rem", // 14px
+        tag: "0.687rem", // 11px
+      },
       fontWeight: {
         semibold: "500",
       },

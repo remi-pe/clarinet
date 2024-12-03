@@ -12,6 +12,8 @@ export default function BuildPage() {
     <div>
       <p className="text-white">build page</p>
       <p className="text-white">{generatedCode}</p>
+      {/* {parse(`<div className="w-16 h-16 bg-orange-500"></div>`)} */}
+
       {parse(generatedCode)}
     </div>
   );

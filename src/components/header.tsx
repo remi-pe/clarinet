@@ -2,10 +2,10 @@
 
 import {useRouter} from "next/navigation";
 import {Button} from "./button";
-import {useStore} from "@/app/store";
+import {PlusIcon} from "./icons/plus";
+import {BuildButton} from "./build-button";
 
 export const Header = () => {
-  const {isProcessing} = useStore();
   const router = useRouter();
   return (
     <>
@@ -24,36 +24,24 @@ export const Header = () => {
               <p className="text-white text-sm font-semibold">KNOWLEDGE BASE</p>
             )}
             size={"l"}
-            onClickHandler={() => router.push("/build")}
+            onClickHandler={() => router.push("/")}
             className="bg-blue-100 border-blue-300"
           />
-
-          <button form="hook-form" className="text-white">
+          <button
+            form="hook-form"
+            className="text-white bg-blue-100 border-blue-300"
+          >
             submit form
           </button>
 
-          {/* <Button
+          <Button
             renderIcon={(size) => <PlusIcon size={size} />}
             onClickHandler={() => console.log("add system prompt")}
             size="m"
             theme="dark"
             className="grey-100 grey-400"
-          /> */}
-
-          <Button
-            theme="dark"
-            renderLabel={() => (
-              <p className="text-white text-sm font-semibold">BUILD</p>
-            )}
-            size={"l"}
-            onClickHandler={() => {
-              if (isProcessing) return;
-              router.push("/build");
-            }}
-            className={`${
-              isProcessing ? "cursor-wait" : "cursor-pointer"
-            } bg-grey-100 border-grey-300`}
           />
+          <BuildButton />
         </div>
       </header>
     </>

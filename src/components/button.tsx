@@ -10,6 +10,7 @@ type Button = {
   theme: "light" | "dark";
   size: Size;
   className?: ClassValue;
+  form?: string;
 };
 
 export const Button = ({
@@ -19,6 +20,7 @@ export const Button = ({
   theme,
   size,
   className,
+  form,
 }: Button) => {
   return (
     <button
@@ -30,6 +32,7 @@ export const Button = ({
         className
       )}
       onClick={onClickHandler}
+      form={form}
     >
       {renderIcon && renderIcon(size)}
       {renderLabel && renderLabel(size)}
