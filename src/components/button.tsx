@@ -28,7 +28,9 @@ export const Button = ({
       className={cn(
         `${
           theme === "dark" ? "text-white" : "text-black"
-        } w-fit p-1.5 rounded-md border  ${renderLabel ? "px-4" : undefined}`,
+        } w-fit p-1.5 rounded-md border border-grey-300  ${
+          renderLabel ? "px-4" : undefined
+        }`,
         className
       )}
       onClick={onClickHandler}

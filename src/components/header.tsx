@@ -1,15 +1,17 @@
 "use client";
 
-import {useRouter} from "next/navigation";
+import {useRouter, usePathname} from "next/navigation";
 import {Button} from "./button";
-import {PlusIcon} from "./icons/plus";
 import {BuildButton} from "./build-button";
+import {SystemIcon} from "./icons/system";
 
 export const Header = () => {
   const router = useRouter();
+  const path = usePathname();
+
   return (
     <>
-      <header className="flex justify-between px-12 pt-6 h-44 bg-grey-100">
+      <header className="flex justify-between items-center px-12 h-[83px] bg-grey-100">
         <span
           onClick={() => router.push("/")}
           className="text-2xl font-prata text-white cursor-pointer"
@@ -17,7 +19,7 @@ export const Header = () => {
         >
           Clarinet
         </span>
-        <div className="space-x-4">
+        <div className="flex items-center gap-4">
           <Button
             theme="dark"
             renderLabel={() => (
@@ -25,21 +27,17 @@ export const Header = () => {
             )}
             size={"l"}
             onClickHandler={() => router.push("/")}
-            className="bg-blue-100 border-blue-300"
+            className={`${
+              path === "/" ? "bg-blue-100 border-blue-300" : ""
+            } h-[40px]`}
           />
-          <button
-            form="hook-form"
-            className="text-white bg-blue-100 border-blue-300"
-          >
-            submit form
-          </button>
 
           <Button
-            renderIcon={(size) => <PlusIcon size={size} />}
+            renderIcon={(size) => <SystemIcon size={size} />}
             onClickHandler={() => console.log("add system prompt")}
-            size="m"
+            size="xl"
             theme="dark"
-            className="grey-100 grey-400"
+            className="grey-100 grey-400 h-[40px]"
           />
           <BuildButton />
         </div>

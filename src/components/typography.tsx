@@ -10,7 +10,7 @@ const typographyVariants = cva("text-foreground", {
       h1: "text-header1 font-syne font-bold",
       h2: "text-title1 font-workSans",
       p: "text-body font-workSans",
-      tag: "text-tag font-workSans",
+      tag: "text-[12px] font-workSans", // get this working from tailwind config
     },
   },
 });

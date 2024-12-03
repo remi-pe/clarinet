@@ -61,7 +61,7 @@ export const BuildRequest = () => {
           return (
             <li
               key={item.id}
-              className="flex gap-4 items-end flex-col p-5 bg-grey-100 rounded-xl w-full border-grey-400 border-2"
+              className="flex gap-4 items-end flex-col p-5 bg-grey-100 rounded-xl w-full border-grey-400 border"
             >
               <Button
                 renderIcon={(size) => <CrossIcon size={size} />}
@@ -70,12 +70,13 @@ export const BuildRequest = () => {
                 theme="dark"
                 className="grey-100 grey-400"
               />
+
               <Textarea
                 className="text-white border-none p-0"
                 {...register(`requirements.${index}.requirement`, {
                   required: true,
                 })}
-                value="write some react code that draws a red square on the screen."
+                defaultValue="write some react code that draws a blue square on the screen."
                 placeholder="write some react code that draws a red square on the screen."
               />
             </li>

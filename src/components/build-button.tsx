@@ -1,40 +1,48 @@
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {useRouter} from "next/navigation";
 import {Typography} from "./typography";
+import {Button} from "./button";
+import {useState} from "react";
+import {Divider} from "./divider";
+import {usePathname} from "next/navigation";
 
 export const BuildButton = () => {
-  const router = useRouter();
+  const path = usePathname();
+  const [showPopover, setShowPopover] = useState(false);
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <p
-          className={
-            "w-fit p-1.5 rounded-md border px-4 text-white cursor-pointer bg-grey-300"
-          }
-        >
-          BUILD
-        </p>
-      </PopoverTrigger>
-      <PopoverContent className="w-[213px] bg-grey-300 border-grey-400">
-        <div className="grid gap-4">
-          <div className="space-y-2">
-            <Typography variant="tag" className="text-white">
-              You have new requirements that haven&apos;t processed yet
-            </Typography>
+    <>
+      <div className="relative">
+        <Button
+          theme="dark"
+          renderLabel={() => (
+            <p className="text-white text-sm font-semibold">BUILD</p>
+          )}
+          size={"l"}
+          onClickHandler={() => setShowPopover(!showPopover)}
+          className={`${
+            path === "/build" ? "bg-blue-100 border-blue-300" : ""
+          } h-[40px]`}
+        />
+        {showPopover && (
+          <div className="w-[213px] absolute top-10 right-0 z-50 bg-grey-300 border-grey-400 rounded-md p-4 grid gap-4">
+            <div className="space-y-3">
+              <Typography variant="tag" className="text-white">
+                You have 17 changes.
+              </Typography>
 
-            <button
-              form="hook-form"
-              onClick={() => router.push("/")}
-              className={
-                "p-1.5 rounded-md border px-4 text-white cursor-pointer bg-blue-100 border-blue-300 w-full"
-              }
-            >
-              PROCESS
-            </button>
+              <Divider />
+
+              <button
+                form="hook-form"
+                className={
+                  "p-1.5 rounded-md border px-4 text-white cursor-pointer bg-blue-100 border-blue-300 w-full"
+                }
+              >
+                <p className="text-white text-sm font-semibold">PROCESS</p>
+              </button>
+            </div>
           </div>
-        </div>
-      </PopoverContent>
-    </Popover>
+        )}
+      </div>
+    </>
   );
 };

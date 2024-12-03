@@ -1,12 +1,13 @@
 import {PropsWithChildren} from "react";
 
-export type Size = "xs" | "s" | "m" | "l";
+export type Size = "xs" | "s" | "m" | "l" | "xl";
 
 const sizeMap: Record<Size, number> = {
   xs: 8,
   s: 10,
   m: 12,
   l: 14,
+  xl: 24,
 };
 
 type BaseIcon = PropsWithChildren<{
