@@ -1,6 +1,7 @@
 "use client";
 
 import {useStore} from "@/app/store";
+// import {LiveProvider, LivePreview} from "react-live";
 import parse from "html-react-parser";
 
 export default function BuildPage() {
@@ -9,11 +10,14 @@ export default function BuildPage() {
   if (!generatedCode) return null;
 
   return (
+    // <LiveProvider code={generatedCode}>
+    //   {/* <LiveEditor /> */}
+    //   {/* <LiveError /> */}
+    //   <LivePreview />
+    // </LiveProvider>
+
     <div>
       <p className="text-white">build page</p>
-      <p className="text-white">{generatedCode}</p>
-      {/* {parse(`<div className="w-16 h-16 bg-orange-500"></div>`)} */}
-
       {parse(generatedCode)}
     </div>
   );

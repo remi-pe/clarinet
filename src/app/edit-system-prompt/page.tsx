@@ -1,6 +1,5 @@
 "use client";
 
-import {Button} from "@/components/button";
 import {Textarea} from "@/components/ui/textarea";
 import {DEFAULT_SYSTEM_PROMPT} from "@/consts";
 import {useForm, SubmitHandler} from "react-hook-form";

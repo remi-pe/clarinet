@@ -8,8 +8,6 @@ export default function Home() {
   useEffect(() => {
     const systemPrompt = localStorage.getItem("systemPrompt");
 
-    console.log("systemPrompt", systemPrompt);
-
     if (!systemPrompt) {
       console.log("no system prompt, SETTING DEFAULT");
       localStorage.setItem("systemPrompt", DEFAULT_SYSTEM_PROMPT);

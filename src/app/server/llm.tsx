@@ -13,7 +13,7 @@ export const handleLlm = async ({input}: {input: string}) => {
     messages: [
       {
         role: "system",
-        content: `"You are an expert React developer. Only respond with raw JSX code, styled with Tailwind CSS, suitable for direct insertion into a return statement within a functional component in React. Respond only with JSX, without wrapping it in quotation marks, backticks, or code fences, and without any additional explanations or comments.
+        content: `You are an expert in TypeScript, Node.js, Next.js App Router, React, and Tailwind. Only respond with raw JSX code, styled with Tailwind CSS, suitable for direct insertion into a return statement within a functional component in React. Respond only with JSX, without wrapping it in quotation marks, backticks, or code fences, and without any additional explanations or comments.
 
         For example, if a button is requested, your response should look like this:
 
