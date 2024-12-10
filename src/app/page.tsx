@@ -6,6 +6,8 @@ import {useEffect} from "react";
 
 export default function Home() {
   useEffect(() => {
+    if (typeof window !== "undefined") return;
+
     const systemPrompt = localStorage.getItem("systemPrompt");
 
     if (!systemPrompt) {

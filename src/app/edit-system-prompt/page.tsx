@@ -2,6 +2,8 @@
 
 import {Textarea} from "@/components/ui/textarea";
 import {DEFAULT_SYSTEM_PROMPT} from "@/consts";
+import {useEffect} from "react";
+import {useState} from "react";
 import {useForm, SubmitHandler} from "react-hook-form";
 
 interface IFormInput {
@@ -10,11 +12,22 @@ interface IFormInput {
 
 export default function EditSystemPrompt() {
   const {register, handleSubmit} = useForm<IFormInput>();
+  const [systemPrompt, setSystemPrompt] = useState<string>("");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const systemPrompt = window.localStorage.getItem("systemPrompt");
+
+    setSystemPrompt(systemPrompt || DEFAULT_SYSTEM_PROMPT);
+
+    if (!systemPrompt) {
+      localStorage.setItem("systemPrompt", DEFAULT_SYSTEM_PROMPT);
+    }
+  }, []);
+
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     localStorage.setItem("systemPrompt", data.systemPrompt);
   };
-
-  const systemPrompt = localStorage.getItem("systemPrompt") || "";
 
   return (
     <div className="w-full">

@@ -21,21 +21,22 @@ export const BuildRequest = () => {
   const router = useRouter();
   const {setIsProcessing, setGeneratedCode} = useStore();
   const {register, control, handleSubmit, setValue, watch} = useForm({
-    defaultValues: localStorage.getItem("storageKey")
-      ? JSON.parse(localStorage.getItem("storageKey") || "")
-      : {
-          requirements: [
-            {
-              requirement: "",
-            },
-          ],
-        },
+    defaultValues:
+      typeof window !== "undefined" && window.localStorage.getItem("storageKey")
+        ? JSON.parse(window.localStorage.getItem("storageKey") || "")
+        : {
+            requirements: [
+              {
+                requirement: "",
+              },
+            ],
+          },
   });
 
   useFormPersist("storageKey", {
     watch,
     setValue,
-    storage: window.localStorage,
+    storage: typeof window !== "undefined" ? window.localStorage : undefined,
   });
 
   const construeRequirements = (data: FormData) => {
