@@ -8,7 +8,7 @@ const client = new OpenAI({
 
 export const handleLlm = async ({input}: {input: string}) => {
   const completion = await client.chat.completions.create({
-    model: "o1-mini",
+    model: "gpt-4o",
     // temperature: 0,
     messages: [
       {
