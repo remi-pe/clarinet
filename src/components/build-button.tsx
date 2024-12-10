@@ -2,8 +2,23 @@ import {Typography} from "./typography";
 import {Divider} from "./divider";
 import {usePathname} from "next/navigation";
 import {Popover, PopoverContent, PopoverTrigger} from "./ui/popover";
+import {useStore} from "@/app/store";
+
+// build a tab component. I want to be able to click the tab and for the selected tab to change. Please fill both the tabs with lorem ipsum I want the background of the first tab to be blue and the back ground of the second tab to be green.
+
+// Create a responsive calendar app using React and Tailwind CSS. The app should have the following features:
+
+// Monthly View: DDisplay the days of the month in a 5-column grid format, with the current day highlighted.
+// Navigation: Include buttons to navigate to the previous and next months.
+// Add Events: Allow users to click on a specific day to add an event. Use a modal or popup for entering event details like title, description, and time.
+// Event Display: Show events as small badges or markers on the corresponding day in the calendar grid. When a user hovers or clicks on a day, display event details.
+// Responsive Design: Ensure the calendar layout adjusts for different screen sizes, from mobile to desktop.
+// Customizable Appearance: Use Tailwind CSS classes to allow users to easily modify the color scheme and font styles.
+// Current Date Highlighting: Automatically highlight the current date with a distinct style.
+// Weekday Headers: Include headers (Sun, Mon, etc.) for each column in the grid.
 
 export const BuildButton = () => {
+  const {isProcessing} = useStore();
   const path = usePathname();
 
   return (
@@ -39,26 +54,14 @@ export const BuildButton = () => {
                   "p-1.5 rounded-md border px-4 text-white cursor-pointer bg-blue-100 border-blue-300 w-full"
                 }
               >
-                <p className="text-white text-sm font-semibold">PROCESS</p>
+                <p className="text-white text-sm font-semibold">
+                  {isProcessing ? "PROCESSING" : "PROCESS"}
+                </p>
               </button>
             </div>
           </div>
         </PopoverContent>
       </Popover>
-
-      {/* <div className="relative">
-        <Button
-          theme="dark"
-          renderLabel={() => (
-            <p className="text-white text-sm font-semibold">BUILD</p>
-          )}
-          size={"l"}
-          onClickHandler={() => setShowPopover(!showPopover)}
-          className={`${
-            path === "/build" ? "bg-blue-100 border-blue-300" : ""
-          } h-[40px]`}
-        />
-      </div> */}
     </>
   );
 };

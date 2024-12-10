@@ -1,8 +1,7 @@
 "use client";
 
 import {useStore} from "@/app/store";
-// import {LiveProvider, LivePreview} from "react-live";
-import parse from "html-react-parser";
+import {LiveProvider, LivePreview, LiveEditor} from "react-live";
 
 export default function BuildPage() {
   const {generatedCode} = useStore();
@@ -10,15 +9,14 @@ export default function BuildPage() {
   if (!generatedCode) return null;
 
   return (
-    // <LiveProvider code={generatedCode}>
-    //   {/* <LiveEditor /> */}
-    //   {/* <LiveError /> */}
-    //   <LivePreview />
-    // </LiveProvider>
+    <LiveProvider code={generatedCode}>
+      <div className="grid grid-cols-2 gap-4">
+        <LiveEditor />
 
-    <div>
-      <p className="text-white">build page</p>
-      {parse(generatedCode)}
-    </div>
+        <div className="flex flex-col gap-4 bg-slate-50">
+          <LivePreview />
+        </div>
+      </div>
+    </LiveProvider>
   );
 }

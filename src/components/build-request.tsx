@@ -9,6 +9,7 @@ import {PlusIcon} from "./icons/plus";
 import {useStore} from "@/app/store";
 import {handleLlm} from "@/app/server/llm";
 import {useRouter} from "next/navigation";
+import useFormPersist from "react-hook-form-persist";
 
 type FormData = {
   requirements: {
@@ -19,10 +20,22 @@ type FormData = {
 export const BuildRequest = () => {
   const router = useRouter();
   const {setIsProcessing, setGeneratedCode} = useStore();
-  const {register, control, handleSubmit} = useForm({
-    defaultValues: {
-      requirements: [{requirement: ""}],
-    },
+  const {register, control, handleSubmit, setValue, watch} = useForm({
+    defaultValues: localStorage.getItem("storageKey")
+      ? JSON.parse(localStorage.getItem("storageKey") || "")
+      : {
+          requirements: [
+            {
+              requirement: "",
+            },
+          ],
+        },
+  });
+
+  useFormPersist("storageKey", {
+    watch,
+    setValue,
+    storage: window.localStorage,
   });
 
   const construeRequirements = (data: FormData) => {
@@ -76,7 +89,6 @@ export const BuildRequest = () => {
                 {...register(`requirements.${index}.requirement`, {
                   required: true,
                 })}
-                defaultValue="write some react code that draws a blue square on the screen."
                 placeholder="write some react code that draws a red square on the screen."
               />
             </li>

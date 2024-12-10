@@ -9,7 +9,6 @@ export default function Home() {
     const systemPrompt = localStorage.getItem("systemPrompt");
 
     if (!systemPrompt) {
-      console.log("no system prompt, SETTING DEFAULT");
       localStorage.setItem("systemPrompt", DEFAULT_SYSTEM_PROMPT);
     }
   }, []);
