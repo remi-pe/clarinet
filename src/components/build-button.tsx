@@ -3,6 +3,7 @@ import {Divider} from "./divider";
 import {usePathname} from "next/navigation";
 import {Popover, PopoverContent, PopoverTrigger} from "./ui/popover";
 import {useStore} from "@/app/store";
+import {LoadingIcon} from "./icons/loading";
 
 // build a tab component. I want to be able to click the tab and for the selected tab to change. Please fill both the tabs with lorem ipsum I want the background of the first tab to be blue and the back ground of the second tab to be green.
 
@@ -38,12 +39,13 @@ export const BuildButton = () => {
 
         <PopoverContent
           align="end"
-          className="w-[213px] z-50 bg-grey-300 border-grey-400 rounded-md p-4 grid gap-4"
+          className="w-[254px] z-50 bg-grey-300 border-grey-400 rounded-md p-4 grid gap-4"
         >
           <div>
             <div className="space-y-3">
               <Typography variant="tag" className="text-white">
-                You have 17 changes.
+                Please process first to reflect changes made in the knowledge
+                base.
               </Typography>
 
               <Divider />
@@ -51,9 +53,10 @@ export const BuildButton = () => {
               <button
                 form="hook-form"
                 className={
-                  "p-1.5 rounded-md border px-4 text-white cursor-pointer bg-blue-100 border-blue-300 w-full"
+                  "p-1.5 flex items-center justify-center gap-2 rounded-md border px-4 text-white cursor-pointer bg-blue-100 border-blue-300 w-full"
                 }
               >
+                {isProcessing && <LoadingIcon />}
                 <p className="text-white text-sm font-semibold">
                   {isProcessing ? "PROCESSING" : "PROCESS"}
                 </p>
