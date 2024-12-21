@@ -5,6 +5,8 @@ type Store = {
   setGeneratedCode: (code: string) => void;
   isProcessing: boolean;
   setIsProcessing: (isProcessing: boolean) => void;
+  requirement: string;
+  setRequirement: (requirement: string) => void;
 };
 
 export const useStore = create<Store>()((set) => ({
@@ -12,4 +14,6 @@ export const useStore = create<Store>()((set) => ({
   setGeneratedCode: (code: string) => set(() => ({generatedCode: code})),
   isProcessing: false,
   setIsProcessing: (isProcessing: boolean) => set(() => ({isProcessing})),
+  requirement: "",
+  setRequirement: (requirement: string) => set(() => ({requirement})),
 }));

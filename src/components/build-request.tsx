@@ -1,13 +1,12 @@
 "use client";
 
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import {useForm, useFieldArray} from "react-hook-form";
 import {Textarea} from "@/components/ui/textarea";
 import {CrossIcon} from "./icons/cross";
 import {Button} from "./button";
 import {PlusIcon} from "./icons/plus";
 import {useStore} from "@/app/store";
-import {handleLlm} from "@/app/server/llm";
 import {useRouter} from "next/navigation";
 import useFormPersist from "react-hook-form-persist";
 
@@ -17,30 +16,59 @@ type FormData = {
   }[];
 };
 
+const defaultValue = {
+  requirements: [
+    {
+      requirement: "",
+    },
+  ],
+};
+
+const fetchLlmResponse = async (prompt: string): Promise<{message: string}> => {
+  const response = await fetch("/api/llm", {
+    method: "POST",
+    body: JSON.stringify({prompt}),
+  });
+
+  return response.json();
+};
+
 export const BuildRequest = () => {
   const router = useRouter();
-  const {setIsProcessing, setGeneratedCode} = useStore();
+  const {
+    setIsProcessing,
+    setGeneratedCode,
+    setRequirement: setPrompt,
+    requirement: currentPrompt,
+  } = useStore();
+  const storage = useRef<Storage | undefined>(undefined);
+
+  useEffect(() => {
+    storage.current = localStorage;
+    const value = storage.current.getItem("thing");
+
+    storage.current.setItem(
+      "thing",
+      value ?? JSON.stringify(defaultValue.requirements)
+    );
+  }, []);
+
   const {register, control, handleSubmit, setValue, watch} = useForm({
-    defaultValues:
-      typeof window !== "undefined" && window.localStorage.getItem("storageKey")
-        ? JSON.parse(window.localStorage.getItem("storageKey") || "")
-        : {
-            requirements: [
-              {
-                requirement: "",
-              },
-            ],
-          },
+    defaultValues: defaultValue,
   });
 
-  useFormPersist("storageKey", {
+  useFormPersist("thing", {
     watch,
     setValue,
-    storage: typeof window !== "undefined" ? window.localStorage : undefined,
+    storage: storage.current,
   });
 
-  const construeRequirements = (data: FormData) => {
-    return data.requirements.map((item) => item.requirement).join("\n");
+  const createPrompt = (data: FormData) => {
+    const prompt = data.requirements.map((item) => item.requirement).join("\n");
+
+    setPrompt(prompt);
+
+    return prompt;
   };
 
   const {fields, append, remove} = useFieldArray({
@@ -49,17 +77,22 @@ export const BuildRequest = () => {
   });
 
   const onSubmit = async (data: FormData) => {
+    const prompt = createPrompt(data);
+    const isSame = currentPrompt === prompt;
+
+    if (!isSame) {
+      router.push("/build");
+    }
+
     setIsProcessing(true);
-    const prompt = construeRequirements(data);
-    const response = await handleLlm({input: prompt});
+
+    const response = await fetchLlmResponse(prompt);
 
     setIsProcessing(false);
 
-    console.log(response);
+    if (!response.message) return;
 
-    if (!response) return;
-
-    setGeneratedCode(response);
+    setGeneratedCode(response.message);
 
     router.push("/build");
   };
