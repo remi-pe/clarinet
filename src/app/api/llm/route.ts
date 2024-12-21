@@ -5,6 +5,8 @@ const client = new OpenAI({
   apiKey: process.env.OPEN_AI_SECRET,
 });
 
+export const maxDuration = 60;
+
 export async function POST(request: NextRequest) {
   const body = await request.json();
   console.log("body", body);
