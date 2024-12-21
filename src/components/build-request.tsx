@@ -9,6 +9,7 @@ import {PlusIcon} from "./icons/plus";
 import {useStore} from "@/app/store";
 import {useRouter} from "next/navigation";
 import useFormPersist from "react-hook-form-persist";
+import {DEFAULT_SYSTEM_PROMPT} from "@/consts";
 
 type FormData = {
   requirements: {
@@ -24,10 +25,16 @@ const defaultValue = {
   ],
 };
 
-const fetchLlmResponse = async (prompt: string): Promise<{message: string}> => {
+const fetchLlmResponse = async ({
+  userPrompt,
+  systemPrompt,
+}: {
+  userPrompt: string;
+  systemPrompt: string;
+}): Promise<{message: string}> => {
   const response = await fetch("/api/llm", {
     method: "POST",
-    body: JSON.stringify({prompt}),
+    body: JSON.stringify({userPrompt, systemPrompt}),
   });
 
   return response.json();
@@ -77,10 +84,14 @@ export const BuildRequest = () => {
 
   const onSubmit = async (data: FormData) => {
     const prompt = createPrompt(data);
+    const systemPrompt = localStorage.getItem("systemPrompt");
 
     setIsProcessing(true);
 
-    const response = await fetchLlmResponse(prompt);
+    const response = await fetchLlmResponse({
+      userPrompt: prompt,
+      systemPrompt: systemPrompt ?? DEFAULT_SYSTEM_PROMPT,
+    });
 
     setIsProcessing(false);
 
