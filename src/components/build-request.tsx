@@ -39,7 +39,6 @@ export const BuildRequest = () => {
     setIsProcessing,
     setGeneratedCode,
     setRequirement: setPrompt,
-    requirement: currentPrompt,
   } = useStore();
   const storage = useRef<Storage | undefined>(undefined);
 
