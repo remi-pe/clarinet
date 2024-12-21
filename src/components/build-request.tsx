@@ -78,11 +78,6 @@ export const BuildRequest = () => {
 
   const onSubmit = async (data: FormData) => {
     const prompt = createPrompt(data);
-    const isSame = currentPrompt === prompt;
-
-    if (!isSame) {
-      router.push("/build");
-    }
 
     setIsProcessing(true);
 
