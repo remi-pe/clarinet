@@ -56,7 +56,9 @@ export default function BuildPage() {
       <LiveProvider enableTypeScript code={generatedCode} scope={scope}>
         <div className="grid grid-cols-2 gap-4">
           <LiveEditor />
-          <LivePreview />
+          <div className="bg-white">
+            <LivePreview />
+          </div>
         </div>
         <LiveError className="text-red-800 bg-red-100 mt-2" />
       </LiveProvider>
