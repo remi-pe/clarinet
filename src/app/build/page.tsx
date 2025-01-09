@@ -1,7 +1,7 @@
 "use client";
 
 import {useStore} from "@/app/store";
-import {LiveProvider, LivePreview, LiveEditor} from "react-live";
+import {LiveProvider, LivePreview, LiveEditor, LiveError} from "react-live";
 import {Button} from "@/components/ui/button";
 import {LoadingIcon} from "@/components/icons/loading";
 import {
@@ -11,11 +11,20 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import {Label} from "@/components/ui/label";
+import {Badge} from "@/components/ui/badge";
+import {Alert, AlertTitle, AlertDescription} from "@/components/ui/alert";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationLink,
+  PaginationItem,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
+} from "@/components/ui/pagination";
 
 export default function BuildPage() {
   const {generatedCode} = useStore();
-
-  if (!generatedCode) return null;
 
   const scope = {
     Button,
@@ -25,17 +34,32 @@ export default function BuildPage() {
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
+    Badge,
+    Alert,
+    AlertTitle,
+    AlertDescription,
+    Pagination,
+    PaginationContent,
+    PaginationLink,
+    PaginationItem,
+    PaginationPrevious,
+    PaginationNext,
+    PaginationEllipsis,
   };
 
-  return (
-    <LiveProvider code={generatedCode} scope={scope}>
-      <div className="grid grid-cols-2 gap-4">
-        <LiveEditor />
+  if (!generatedCode) {
+    return <p>No code generated</p>;
+  }
 
-        <div className="flex flex-col gap-4 bg-slate-50">
+  return (
+    <>
+      <LiveProvider enableTypeScript code={generatedCode} scope={scope}>
+        <div className="grid grid-cols-2 gap-4">
+          <LiveEditor />
           <LivePreview />
         </div>
-      </div>
-    </LiveProvider>
+        <LiveError className="text-red-800 bg-red-100 mt-2" />
+      </LiveProvider>
+    </>
   );
 }

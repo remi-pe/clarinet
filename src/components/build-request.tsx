@@ -42,19 +42,16 @@ const fetchLlmResponse = async ({
 
 export const BuildRequest = () => {
   const router = useRouter();
-  const {
-    setIsProcessing,
-    setGeneratedCode,
-    setRequirement: setPrompt,
-  } = useStore();
+  const {setIsProcessing, setGeneratedCode, userPrompt, setUserPrompt} =
+    useStore();
   const storage = useRef<Storage | undefined>(undefined);
 
   useEffect(() => {
     storage.current = localStorage;
-    const value = storage.current.getItem("thing");
+    const value = storage.current.getItem("user_prompt");
 
     storage.current.setItem(
-      "thing",
+      "user_prompt",
       value ?? JSON.stringify(defaultValue.requirements)
     );
   }, []);
@@ -63,7 +60,7 @@ export const BuildRequest = () => {
     defaultValues: defaultValue,
   });
 
-  useFormPersist("thing", {
+  useFormPersist("user_prompt", {
     watch,
     setValue,
     storage: storage.current,
@@ -72,7 +69,7 @@ export const BuildRequest = () => {
   const createPrompt = (data: FormData) => {
     const prompt = data.requirements.map((item) => item.requirement).join("\n");
 
-    setPrompt(prompt);
+    setUserPrompt(prompt);
 
     return prompt;
   };
@@ -83,18 +80,25 @@ export const BuildRequest = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-    const prompt = createPrompt(data);
+    const newPrompt = createPrompt(data);
+
     const systemPrompt = localStorage.getItem("systemPrompt");
+
+    if (newPrompt === userPrompt) {
+      router.push("/build");
+      return;
+    }
 
     setIsProcessing(true);
 
     const response = await fetchLlmResponse({
-      userPrompt: prompt,
+      userPrompt: newPrompt,
       systemPrompt: systemPrompt ?? DEFAULT_SYSTEM_PROMPT,
+    }).finally(() => {
+      setIsProcessing(false);
     });
 
-    setIsProcessing(false);
-
+    // render error toast here
     if (!response.message) return;
 
     setGeneratedCode(response.message);

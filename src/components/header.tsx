@@ -15,7 +15,6 @@ export const Header = () => {
         <span
           onClick={() => router.push("/")}
           className="text-2xl font-prata text-white cursor-pointer"
-          aria-label="Logo"
         >
           Clarinet
         </span>
@@ -37,7 +36,11 @@ export const Header = () => {
             onClickHandler={() => router.push("/edit-system-prompt")}
             size="xl"
             theme="dark"
-            className="grey-100 grey-400 h-[40px]"
+            className={`${
+              path === "/edit-system-prompt"
+                ? "bg-blue-100 border-blue-300"
+                : ""
+            } h-[40px]`}
           />
           <BuildButton />
         </div>
